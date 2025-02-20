@@ -22,9 +22,13 @@ class SongProvider with ChangeNotifier {
   }
 
   void resumeSong() async {
-    if (songs.isEmpty) return;
-    await playPause();
+  if (songs.isEmpty) return; 
+  if (isPlaying) {
+    await audioPlayer.pause();
+    await audioPlayer.resume(); 
   }
+  notifyListeners();
+}
 
   Future<void> playPause() async {
     if (songs.isEmpty) return;
