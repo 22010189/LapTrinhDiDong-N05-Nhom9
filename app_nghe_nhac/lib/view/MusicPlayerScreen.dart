@@ -2,6 +2,7 @@ import 'package:app_nghe_nhac/controller/song_provider.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'dart:async';
 
 class MusicPlayerScreen extends StatefulWidget {
   @override
@@ -14,24 +15,31 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
   Duration _totalDuration = Duration.zero;
   int repeatMode = 0; // 0: Lặp lại danh sách, 1: Lặp lại bài hát, 2: Phát ngẫu nhiên
 
+  StreamSubscription<Duration>? _positionSubscription;
+  StreamSubscription<Duration>? _durationSubscription;
+
   void initState() {
     super.initState();
 
     // Lắng nghe tiến trình bài hát
-  _audioPlayer.onPositionChanged.listen((position) {
-    print("Thời gian hiện tại: ${position.inSeconds} giây");
-    setState(() {
-      _currentPosition = position;
+    _positionSubscription = _audioPlayer.onPositionChanged.listen((position) {
+      if (mounted) {
+        print("Thời gian hiện tại: ${position.inSeconds} giây");
+        setState(() {
+          _currentPosition = position;
+        });
+      }
     });
-  });
 
-  // Lắng nghe tổng thời gian bài hát
-  _audioPlayer.onDurationChanged.listen((duration) {
-    print("Tổng thời gian bài hát: ${duration.inSeconds} giây");
-    setState(() {
-      _totalDuration = duration;
+    // Lắng nghe tổng thời gian bài hát
+    _durationSubscription = _audioPlayer.onDurationChanged.listen((duration) {
+      if (mounted) {
+        print("Tổng thời gian bài hát: ${duration.inSeconds} giây");
+        setState(() {
+          _totalDuration = duration;
+        });
+      }
     });
-  });
   }
 
   void toggleRepeatMode() {
@@ -45,6 +53,12 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
     String minutes = twoDigits(duration.inMinutes.remainder(60));
     String seconds = twoDigits(duration.inSeconds.remainder(60));
     return "$minutes:$seconds";
+  }
+  @override
+  void dispose() {
+    _positionSubscription?.cancel();
+    _durationSubscription?.cancel();
+    super.dispose();
   }
 
   @override

@@ -10,7 +10,6 @@ class MiniPlayer extends StatefulWidget {
 
 class _MiniPlayerState extends State<MiniPlayer>
     with SingleTickerProviderStateMixin {
-
   late AnimationController rotationController;
 
   @override
@@ -48,7 +47,11 @@ class _MiniPlayerState extends State<MiniPlayer>
             ),
           );
         }
-
+        if (songProvider.isPlaying) {
+          rotationController.repeat();
+        } else {
+          rotationController.stop();
+        }
         return Container(
           color: const Color.fromARGB(255, 105, 105, 104),
           padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
