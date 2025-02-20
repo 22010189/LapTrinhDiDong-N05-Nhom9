@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class BaiHat extends StatefulWidget {
+  const BaiHat({super.key});
+
   @override
   _BaiHatState createState() => _BaiHatState();
 }
@@ -87,7 +89,7 @@ class _BaiHatState extends State<BaiHat> {
                       title: songProvider.songs[index]['title']!,
                       ngheSi: "Không xác định - Download",
                       onMorePressed: () {
-                        print("Nhấn vào nút more");
+                        //print("Nhấn vào nút more");
                       },
                       onTap: () {
                         Provider.of<SongProvider>(context, listen: false).playFromIndex(index);

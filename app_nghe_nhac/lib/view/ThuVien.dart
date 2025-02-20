@@ -13,6 +13,8 @@ ValueNotifier<String> recentPlaylist =
     ValueNotifier<String>(''); // Lưu trữ tên playlist gần đây nhất đã bấm vào
 
 class ThuVien extends StatelessWidget {
+  const ThuVien({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -139,6 +141,8 @@ class ThuVien extends StatelessWidget {
 }
 
 class ThuVien2 extends StatefulWidget {
+  const ThuVien2({super.key});
+
   @override
   State<ThuVien2> createState() => ThuVien2State();
 }

@@ -73,7 +73,7 @@ class SongProvider with ChangeNotifier {
     if (songs.isEmpty) return;
 
     await audioPlayer.stop();
-    print('Playing: ${songs[currentIndex]['url']}');
+    //print('Playing: ${songs[currentIndex]['url']}');
     await audioPlayer.play(AssetSource(
         songs[currentIndex]['url']!.replaceFirst('assets/', '')));
     

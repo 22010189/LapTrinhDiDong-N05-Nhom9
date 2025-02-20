@@ -6,6 +6,8 @@ import 'dart:math';
 import 'package:provider/provider.dart';
 
 class MiniPlayer extends StatefulWidget {
+  const MiniPlayer({super.key});
+
   @override
   _MiniPlayerState createState() => _MiniPlayerState();
 }
