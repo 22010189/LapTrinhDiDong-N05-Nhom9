@@ -96,6 +96,7 @@ class SongProvider with ChangeNotifier {
     // Hiển thị Snackbar
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
+        backgroundColor: isAdded ? Colors.green : Colors.red,
         content: Text(
           isAdded ? "Đã thêm vào mục yêu thích" : "Đã xóa khỏi mục yêu thích",
         ),
