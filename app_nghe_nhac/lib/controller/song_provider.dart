@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'list_songs.dart';
@@ -5,6 +6,7 @@ import 'list_songs.dart';
 class SongProvider with ChangeNotifier {
   List<Map<String, String>> songs = [];
   int currentIndex = 0;
+  static int repeatMode = 0; // 0: Lặp lại danh sách, 1: Lặp lại bài hát, 2: Phát ngẫu nhiên
   bool isPlaying = false;
   static final AudioPlayer audioPlayer = AudioPlayer();
 
@@ -50,8 +52,13 @@ class SongProvider with ChangeNotifier {
 
   void nextSong() async {
     if (songs.isEmpty) return;
-
-    currentIndex = (currentIndex + 1) % songs.length;
+    if (repeatMode == 1) {
+      await playNewSong(); 
+    } else if (repeatMode == 2) {
+      currentIndex = Random().nextInt(songs.length);
+    } else {
+      currentIndex = (currentIndex + 1) % songs.length;
+    }
     await playNewSong();
   }
 
@@ -71,6 +78,6 @@ class SongProvider with ChangeNotifier {
         songs[currentIndex]['url']!.replaceFirst('assets/', '')));
     
     isPlaying = true;
-    notifyListeners(); // Cập nhật UI
+    notifyListeners(); // Cập nhật UI khi trạng thái thay đổi 
   }
 }

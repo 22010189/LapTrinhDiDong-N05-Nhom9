@@ -13,7 +13,7 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
   AudioPlayer get _audioPlayer => SongProvider.audioPlayer;
   Duration _currentPosition = Duration.zero;
   Duration _totalDuration = Duration.zero;
-  int repeatMode = 0; // 0: Lặp lại danh sách, 1: Lặp lại bài hát, 2: Phát ngẫu nhiên
+
 
   StreamSubscription<Duration>? _positionSubscription;
   StreamSubscription<Duration>? _durationSubscription;
@@ -44,7 +44,7 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
 
   void toggleRepeatMode() {
     setState(() {
-      repeatMode = (repeatMode + 1) % 3;
+      SongProvider.repeatMode = (SongProvider.repeatMode + 1) % 3;
     });
   }
 
@@ -54,6 +54,7 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
     String seconds = twoDigits(duration.inSeconds.remainder(60));
     return "$minutes:$seconds";
   }
+
   @override
   void dispose() {
     _positionSubscription?.cancel();
@@ -157,9 +158,9 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
             children: [
               IconButton(
                 icon: Icon(
-                  repeatMode == 0
+                  SongProvider.repeatMode == 0
                       ? Icons.repeat
-                      : repeatMode == 1
+                      : SongProvider.repeatMode == 1
                           ? Icons.repeat_one
                           : Icons.shuffle,
                   color: Colors.white,
