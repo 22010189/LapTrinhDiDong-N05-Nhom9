@@ -16,7 +16,6 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
   Duration _currentPosition = Duration.zero;
   Duration _totalDuration = Duration.zero;
 
-
   StreamSubscription<Duration>? _positionSubscription;
   StreamSubscription<Duration>? _durationSubscription;
 
@@ -172,10 +171,13 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
               ),
               SizedBox(width: 60),
               IconButton(
-                icon:
-                    Icon(Icons.favorite_border, color: Colors.white, size: 30),
+                icon: Icon(
+                  songProvider.isFavorite(currentSong) ? Icons.favorite : Icons.favorite_border,
+                  color: Colors.white,
+                  size: 30,
+                ),
                 onPressed: () {
-                  //print("Nhấn vào yêu thích");
+                  songProvider.toggleFavorite(currentSong, context);
                 },
               ),
               SizedBox(width: 60),
