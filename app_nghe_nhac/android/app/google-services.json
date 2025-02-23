@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "196155612800",
+    "project_id": "appnghenhacdb",
+    "storage_bucket": "appnghenhacdb.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:196155612800:android:dfb6382a1f1c60bd3f1065",
+        "android_client_info": {
+          "package_name": "com.example.app_nghe_nhac"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEvTPrZtTJMav3qi2uuPftzg7C8B7BLjk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
