@@ -30,7 +30,7 @@ class CaNhanScreen extends StatelessWidget {
             // Avatar + Tên người dùng
             CircleAvatar(
               radius: 50,
-              backgroundImage: AssetImage('assets/user_avatar.png'),
+              backgroundImage: AssetImage('user_avatar.png'),
             ),
             SizedBox(height: 10),
             Text(
