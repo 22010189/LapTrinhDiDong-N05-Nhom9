@@ -1,5 +1,11 @@
+import 'package:app_nghe_nhac/personal/gioi_thieu.dart';
 import 'package:flutter/material.dart';
 import 'package:app_nghe_nhac/personal/giao_dien.dart';
+import 'package:app_nghe_nhac/personal/ngon_ngu.dart';
+import 'package:app_nghe_nhac/personal/thong_bao.dart';
+
+// ignore: unused_element
+String _selectedLanguage = "Tiếng Việt";
 
 class CaNhanScreen extends StatelessWidget {
   const CaNhanScreen({super.key});
@@ -8,7 +14,10 @@ class CaNhanScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Cá Nhân"),
+        title: Text(
+          "Cá Nhân",
+          style: TextStyle(color: Colors.white),
+        ),
         backgroundColor: Colors.grey[800], // Nền AppBar xám
         centerTitle: true,
       ),
@@ -86,24 +95,38 @@ class CaNhanScreen extends StatelessWidget {
                   ),
                   Divider(color: Colors.white54),
                   ListTile(
-                    leading: Icon(Icons.language, color: Colors.white),
-                    title:
-                        Text("Ngôn ngữ", style: TextStyle(color: Colors.white)),
-                    onTap: () {},
-                  ),
+                      leading: Icon(Icons.language, color: Colors.white),
+                      title: Text("Ngôn ngữ",
+                          style: TextStyle(color: Colors.white)),
+                      onTap: () {
+                        NgonNguScreen.showLanguagePicker(context, (selected) {
+                          _selectedLanguage = selected;
+                        });
+                      }),
                   Divider(color: Colors.white54),
                   ListTile(
                     leading: Icon(Icons.notifications, color: Colors.white),
                     title: Text("Thông báo",
                         style: TextStyle(color: Colors.white)),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => TenManHinh()),
+                      );
+                    },
                   ),
                   Divider(color: Colors.white54),
                   ListTile(
                     leading: Icon(Icons.info, color: Colors.white),
                     title: Text("Giới thiệu ứng dụng",
                         style: TextStyle(color: Colors.white)),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => GioiThieuAppScreen()),
+                      );
+                    },
                   ),
                 ],
               ),
