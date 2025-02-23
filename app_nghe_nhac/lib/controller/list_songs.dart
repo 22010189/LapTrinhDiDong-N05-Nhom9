@@ -24,13 +24,13 @@ class ListSongs {
         'image': 'assets/image/disc.jpg'
       };
     }).toList();
-
+    /*
     print("Danh sách bài hát:");
     songs.forEach((song) {
       print(
           "Title: ${song['title']}, URL: ${song['url']}, Image: ${song['image']}");
     });
-
+    */
     return songs;
   }
 }

@@ -5,6 +5,8 @@ import 'package:provider/provider.dart';
 import 'dart:async';
 
 class MusicPlayerScreen extends StatefulWidget {
+  const MusicPlayerScreen({super.key});
+
   @override
   _MusicPlayerScreenState createState() => _MusicPlayerScreenState();
 }
@@ -13,7 +15,6 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
   AudioPlayer get _audioPlayer => SongProvider.audioPlayer;
   Duration _currentPosition = Duration.zero;
   Duration _totalDuration = Duration.zero;
-  int repeatMode = 0; // 0: Lặp lại danh sách, 1: Lặp lại bài hát, 2: Phát ngẫu nhiên
 
   StreamSubscription<Duration>? _positionSubscription;
   StreamSubscription<Duration>? _durationSubscription;
@@ -24,7 +25,7 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
     // Lắng nghe tiến trình bài hát
     _positionSubscription = _audioPlayer.onPositionChanged.listen((position) {
       if (mounted) {
-        print("Thời gian hiện tại: ${position.inSeconds} giây");
+        //print("Thời gian hiện tại: ${position.inSeconds} giây");
         setState(() {
           _currentPosition = position;
         });
@@ -34,7 +35,7 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
     // Lắng nghe tổng thời gian bài hát
     _durationSubscription = _audioPlayer.onDurationChanged.listen((duration) {
       if (mounted) {
-        print("Tổng thời gian bài hát: ${duration.inSeconds} giây");
+        //print("Tổng thời gian bài hát: ${duration.inSeconds} giây");
         setState(() {
           _totalDuration = duration;
         });
@@ -44,7 +45,7 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
 
   void toggleRepeatMode() {
     setState(() {
-      repeatMode = (repeatMode + 1) % 3;
+      SongProvider.repeatMode = (SongProvider.repeatMode + 1) % 3;
     });
   }
 
@@ -54,6 +55,7 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
     String seconds = twoDigits(duration.inSeconds.remainder(60));
     return "$minutes:$seconds";
   }
+
   @override
   void dispose() {
     _positionSubscription?.cancel();
@@ -80,7 +82,7 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
           IconButton(
             icon: Icon(Icons.more_vert, color: Colors.white),
             onPressed: () {
-              print("Nhấn vào nút ba chấm");
+              //print("Nhấn vào nút ba chấm");
             },
           ),
         ],
@@ -157,9 +159,9 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
             children: [
               IconButton(
                 icon: Icon(
-                  repeatMode == 0
+                  SongProvider.repeatMode == 0
                       ? Icons.repeat
-                      : repeatMode == 1
+                      : SongProvider.repeatMode == 1
                           ? Icons.repeat_one
                           : Icons.shuffle,
                   color: Colors.white,
@@ -169,17 +171,20 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
               ),
               SizedBox(width: 60),
               IconButton(
-                icon:
-                    Icon(Icons.favorite_border, color: Colors.white, size: 30),
+                icon: Icon(
+                  songProvider.isFavorite(currentSong) ? Icons.favorite : Icons.favorite_border,
+                  color: Colors.white,
+                  size: 30,
+                ),
                 onPressed: () {
-                  print("Nhấn vào yêu thích");
+                  songProvider.toggleFavorite(currentSong, context);
                 },
               ),
               SizedBox(width: 60),
               IconButton(
                 icon: Icon(Icons.queue_music, color: Colors.white, size: 30),
                 onPressed: () {
-                  print("Nhấn vào danh sách phát");
+                  //print("Nhấn vào danh sách phát");
                 },
               ),
             ],

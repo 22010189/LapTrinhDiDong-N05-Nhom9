@@ -14,7 +14,7 @@ void showMoreOptions(BuildContext context) {
               title: Text("Sắp xếp theo"),
               onTap: () {
                 Navigator.pop(context);
-                print("Sắp xếp theo...");
+                //print("Sắp xếp theo...");
               },
             ),
             ListTile(
@@ -22,7 +22,7 @@ void showMoreOptions(BuildContext context) {
               title: Text("Quản lý bài hát"),
               onTap: () {
                 Navigator.pop(context);
-                print("Quản lý bài hát...");
+                //print("Quản lý bài hát...");
               },
             ),
             ListTile(
@@ -30,7 +30,7 @@ void showMoreOptions(BuildContext context) {
               title: Text("Cài đặt"),
               onTap: () {
                 Navigator.pop(context);
-                print("Cài đặt...");
+                //print("Cài đặt...");
               },
             ),
           ],
