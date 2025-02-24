@@ -49,7 +49,7 @@ class AppMusicState extends State<AppMusic> {
     ThuVien(), // Thư viện (Mặc định)
     ArtistScreen(), // Nghệ sĩ
     BaiHat(), // Bài hát
-    CaNhanScreen(),  
+    CaNhanScreen(),
   ];
 
   @override

@@ -8,9 +8,10 @@ import 'package:app_nghe_nhac/view/widgetsForThuVien/playlist_item.dart';
 import 'package:app_nghe_nhac/view/widgetsForThuVien/recent_card.dart';
 import 'package:flutter/material.dart';
 import 'package:app_nghe_nhac/controller/navigation_controller.dart';
+import 'package:app_nghe_nhac/view/album.dart';
 
-ValueNotifier<String> recentPlaylist =
-    ValueNotifier<String>(''); // Lưu trữ tên playlist gần đây nhất đã bấm vào
+ValueNotifier<String> recentPlaylist = ValueNotifier<String>('');
+// Lưu trữ tên playlist gần đây nhất đã bấm vào
 
 class ThuVien extends StatelessWidget {
   const ThuVien({super.key});
@@ -69,7 +70,7 @@ class ThuVien extends StatelessWidget {
                       count: '',
                       color: Colors.pink,
                       onTap: () => NavigationController.navigateTo(context,
-                          Placeholder())), // bỏ qua k code giao diện này
+                          AlbumScreen())), // bỏ qua k code giao diện này
                 ),
                 Padding(
                   padding: EdgeInsets.only(bottom: 16, left: 10),

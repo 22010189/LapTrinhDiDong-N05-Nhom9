@@ -25,7 +25,7 @@ class CaNhanScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center, 
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             // Avatar + Tên người dùng
             CircleAvatar(
