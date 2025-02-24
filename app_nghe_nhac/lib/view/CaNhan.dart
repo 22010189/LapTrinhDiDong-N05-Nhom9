@@ -1,10 +1,10 @@
-import 'package:app_nghe_nhac/personal/gioi_thieu.dart';
+import 'package:app_nghe_nhac/view/widgetsForCaNhan/gioi_thieu.dart';
 import 'package:flutter/material.dart';
-import 'package:app_nghe_nhac/personal/giao_dien.dart';
-import 'package:app_nghe_nhac/personal/ngon_ngu.dart';
-import 'package:app_nghe_nhac/personal/thong_bao.dart';
+import 'package:app_nghe_nhac/view/widgetsForCaNhan/giao_dien.dart';
+import 'package:app_nghe_nhac/view/widgetsForCaNhan/ngon_ngu.dart';
+import 'package:app_nghe_nhac/view/widgetsForCaNhan/thong_bao.dart';
 
-// ignore: unused_element
+// giao diện cá nhân
 String _selectedLanguage = "Tiếng Việt";
 
 class CaNhanScreen extends StatelessWidget {
@@ -30,11 +30,11 @@ class CaNhanScreen extends StatelessWidget {
             // Avatar + Tên người dùng
             CircleAvatar(
               radius: 50,
-              backgroundImage: AssetImage('user_avatar.png'),
+              backgroundImage: AssetImage('assets/image/user_avatar.png'),
             ),
             SizedBox(height: 10),
             Text(
-              'Tên người dùng',
+              'Nhóm 9',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 20,
@@ -45,7 +45,7 @@ class CaNhanScreen extends StatelessWidget {
 
             // Ô chứa nút "Chỉnh sửa hồ sơ" & "Đăng xuất"
             Container(
-              padding: EdgeInsets.all(16),
+              padding: EdgeInsets.all(16), 
               decoration: BoxDecoration(
                 color: const Color.fromARGB(255, 6, 79, 79), // Nền ô tối hơn
                 borderRadius: BorderRadius.circular(12),

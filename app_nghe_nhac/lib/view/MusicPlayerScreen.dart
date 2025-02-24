@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'dart:async';
 
-class MusicPlayerScreen extends StatefulWidget {
+//giao diện nghe nhạc chính
+class MusicPlayerScreen extends StatefulWidget { 
   const MusicPlayerScreen({super.key});
 
   @override

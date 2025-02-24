@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import "package:app_nghe_nhac/personal/theme_provider.dart";
+import "package:app_nghe_nhac/view/widgetsForCaNhan/theme_provider.dart";
 
-class GiaoDienSelector {
+class GiaoDienSelector { 
   static void show(BuildContext context) {
     showModalBottomSheet(
       context: context,
