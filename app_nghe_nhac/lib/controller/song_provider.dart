@@ -16,9 +16,10 @@ class SongProvider with ChangeNotifier {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   String userId = "user_123";
 
-  Future<void> loadSongs() async {
+  Future<void> loadSongs() async { 
     if (songs.isEmpty) {
       songs = await ListSongs.loadSongs();
+      await loadFavoriteSongs();
       notifyListeners();
     }
   }
@@ -133,6 +134,8 @@ class SongProvider with ChangeNotifier {
       notifyListeners();
     }
   }
+
+
 
 
 }
