@@ -5,7 +5,7 @@ import 'package:app_nghe_nhac/view/widgetsForBaiHat/Songs.dart';
 import 'package:app_nghe_nhac/view/widgetsForThuVien/more_options.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+// giao diện danh sachs bài hát
 class BaiHat extends StatefulWidget {
   const BaiHat({super.key});
 

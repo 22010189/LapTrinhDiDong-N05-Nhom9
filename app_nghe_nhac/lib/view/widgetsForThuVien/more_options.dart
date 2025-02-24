@@ -1,3 +1,5 @@
+import 'package:app_nghe_nhac/controller/navigation_controller.dart';
+import 'package:app_nghe_nhac/view/CaNhan.dart';
 import 'package:flutter/material.dart';
 
 void showMoreOptions(BuildContext context) {
@@ -29,7 +31,7 @@ void showMoreOptions(BuildContext context) {
               leading: Icon(Icons.settings),
               title: Text("Cài đặt"),
               onTap: () {
-                Navigator.pop(context);
+                NavigationController.navigateTo(context, CaNhanScreen());
                 //print("Cài đặt...");
               },
             ),

@@ -1,3 +1,6 @@
+import 'package:app_nghe_nhac/controller/navigation_controller.dart';
+import 'package:app_nghe_nhac/view/MusicPlayerScreen.dart';
+import 'package:app_nghe_nhac/view/widgetsForBaiHat/Songs.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../controller/song_provider.dart';
@@ -10,39 +13,97 @@ class YeuThich extends StatelessWidget {
     var songProvider = Provider.of<SongProvider>(context);
 
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 6, 79, 79),
       appBar: AppBar(
         title: const Text("Bài hát yêu thích"),
-        backgroundColor: Colors.pinkAccent,
+        backgroundColor: const Color.fromARGB(255, 86, 84, 81),
       ),
       body: songProvider.favoriteSongs.isEmpty
           ? const Center(
               child: Text(
                 "Chưa có bài hát yêu thích",
-                style: TextStyle(fontSize: 18, color: Colors.grey),
+                style: TextStyle(
+                    fontSize: 18, color: Color.fromARGB(255, 255, 255, 255)),
               ),
             )
-          : ListView.builder(
-              itemCount: songProvider.favoriteSongs.length,
-              itemBuilder: (context, index) {
-                var song = songProvider.favoriteSongs[index];
-                return ListTile(
-                  leading: const Icon(Icons.music_note, color: Colors.pink),
-                  title: Text(
-                    song['title'] ?? 'Không có tiêu đề',
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+          : Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          if (songProvider.favoriteSongs.isNotEmpty) {
+                            songProvider.playFromIndex(0, FromFavorites: true);
+                          }
+                        },
+                        child: Row(
+                          children: [
+                            const Icon(Icons.play_arrow,
+                                color: Color.fromARGB(255, 255, 255, 255),
+                                size: 33),
+                            const SizedBox(width: 8),
+                            const Text(
+                              'Phát tất cả',
+                              style: TextStyle(
+                                  color: Color.fromARGB(255, 255, 255, 255),
+                                  fontSize: 20),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Text(
+                        '${songProvider.favoriteSongs.length} bài hát',
+                        style: const TextStyle(
+                            color: Color.fromARGB(179, 255, 255, 255),
+                            fontSize: 20),
+                      ),
+                    ],
                   ),
-                  subtitle: Text(song['artist'] ?? 'Không rõ nghệ sĩ'),
-                  trailing: IconButton(
-                    icon: const Icon(Icons.favorite, color: Colors.red),
-                    onPressed: () {
-                      songProvider.toggleFavorite(song,context);
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: songProvider.favoriteSongs.length,
+                    itemBuilder: (context, index) {
+                      return Songs(
+                        title: songProvider.favoriteSongs[index]['title']!,
+                        ngheSi: "Không xác định - Download",
+                        isFavorite: true,
+                        onMorePressed: () {
+                          showModalBottomSheet(
+                            context: context,
+                            builder: (context) {
+                              return Container(
+                                padding: const EdgeInsets.all(10),
+                                child: Wrap(
+                                  children: [
+                                    ListTile(
+                                      leading: const Icon(Icons.delete, color: Colors.red),
+                                      title: const Text("Xóa khỏi yêu thích"),
+                                      onTap: () {
+                                        Provider.of<SongProvider>(context,listen: false).toggleFavorite( songProvider.favoriteSongs[index],context);
+                                        Navigator.pop(context); // Đóng menu sau khi chọn
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          );
+                        },
+                        onTap: () {
+                          Provider.of<SongProvider>(context, listen: false)
+                              .playFromIndex(index, FromFavorites: true);
+                          NavigationController.navigateTo(
+                              context, MusicPlayerScreen());
+                        },
+                      );
                     },
                   ),
-                  onTap: () {
-                    songProvider.playFromIndex(songProvider.songs.indexOf(song));
-                  },
-                );
-              },
+                ),
+              ],
             ),
     );
   }
