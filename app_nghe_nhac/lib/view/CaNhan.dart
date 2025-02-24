@@ -25,12 +25,12 @@ class CaNhanScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center, 
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             // Avatar + Tên người dùng
             CircleAvatar(
               radius: 50,
-              backgroundImage: AssetImage('user_avatar.png'),
+              backgroundImage: AssetImage('assets/user_avatar.png'),
             ),
             SizedBox(height: 10),
             Text(

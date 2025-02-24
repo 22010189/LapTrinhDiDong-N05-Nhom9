@@ -49,7 +49,7 @@ class AppMusicState extends State<AppMusic> {
     ThuVien(), // Thư viện (Mặc định)
     ArtistScreen(), // Nghệ sĩ
     BaiHat(), // Bài hát
-    CaNhanScreen(),  
+    CaNhanScreen(),
   ];
 
   @override
@@ -76,10 +76,11 @@ class AppMusicState extends State<AppMusic> {
             items: [
               BottomNavigationBarItem(
                   icon: Icon(Icons.library_music), label: 'Thư viện'),
+              BottomNavigationBarItem(icon: Icon(Icons.mic), label: 'Nghệ sĩ'),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.mic), label: 'Nghệ sĩ'),
-              BottomNavigationBarItem(icon: Icon(Icons.audio_file), label: 'Bài hát'),
-              BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Cá nhân'),
+                  icon: Icon(Icons.audio_file), label: 'Bài hát'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.person), label: 'Cá nhân'),
             ],
           ),
         ],
