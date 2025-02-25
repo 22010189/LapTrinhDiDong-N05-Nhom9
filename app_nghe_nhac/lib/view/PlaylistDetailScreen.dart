@@ -7,47 +7,96 @@ import 'package:provider/provider.dart';
 class PlaylistDetailScreen extends StatefulWidget {
   final String playlistTitle;
 
-  const PlaylistDetailScreen({Key? key, required this.playlistTitle}) : super(key: key);
+  const PlaylistDetailScreen({Key? key, required this.playlistTitle})
+      : super(key: key);
 
   @override
   _PlaylistDetailScreenState createState() => _PlaylistDetailScreenState();
 }
 
 class _PlaylistDetailScreenState extends State<PlaylistDetailScreen> {
-
   @override
   Widget build(BuildContext context) {
-    var playlistProvider= Provider.of<PlaylistProvider>(context, listen: false);
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 6, 79, 79),
       appBar: AppBar(
-        title: Text(widget.playlistTitle),
-        backgroundColor: Colors.teal,
+        title:
+            Text(widget.playlistTitle, style: TextStyle(color: Colors.white)),
+        backgroundColor: const Color.fromARGB(255, 86, 84, 81),
+        actions: [
+          Consumer<PlaylistProvider>(
+            builder: (context, playlistProvider, child) {
+              int songCount = playlistProvider
+                  .getSongsFromPlaylist(widget.playlistTitle)
+                  .length;
+              return Padding(
+                padding: EdgeInsets.only(right: 16),
+                child: Center(
+                  child: Text(
+                    songCount > 0 ? "$songCount bài hát" : "",
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
       ),
-      body: playlistProvider.getSongsFromPlaylist(widget.playlistTitle).isEmpty
-          ? Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  // Thêm bài hát vào playlist
-                  showAddSongDialog(context, widget.playlistTitle);
-                },
-                child: Text("Thêm bài hát"),
+      body: Consumer<PlaylistProvider>(
+        builder: (context, playlistProvider, child) {
+          List<Map<String, String>> songs =
+              playlistProvider.getSongsFromPlaylist(widget.playlistTitle);
+
+          if (songs.isEmpty) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Chưa có bài hát nào",
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                  ),
+                  SizedBox(height: 10),
+                  ElevatedButton(
+                    onPressed: () {
+                      showAddSongDialog(context, widget.playlistTitle);
+                    },
+                    child: Text("Thêm bài hát"),
+                  ),
+                ],
               ),
-            )
-          : ListView.builder(
-              itemCount: playlistProvider.getSongsFromPlaylist(widget.playlistTitle).length,
-              itemBuilder: (context, index) {
-                return Songs(
-                      title: playlistProvider.getSongsFromPlaylist(widget.playlistTitle)[index]['title']!,
-                      ngheSi: playlistProvider.getSongsFromPlaylist(widget.playlistTitle)[index]['ngheSi']??'Không rõ nghệ sĩ',  
-                      onMorePressed: () {
-                        //print("Nhấn vào nút more");
-                      },
-                      onTap: () {
-                        // Phát bài hát
-                      },
-                    );
-              },
-            ),
+            );
+          }
+
+          return ListView.builder(
+            itemCount: songs.length + 1,
+            itemBuilder: (context, index) {
+              if (index == 0) {
+                return ListTile(
+                  leading: Icon(Icons.playlist_add,
+                      color: Colors.blue), // Thay đổi icon
+                  title: Text(
+                    "Thêm bài hát",
+                    style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white,fontSize: 16),
+                  ),
+                  onTap: () {
+                    showAddSongDialog(context, widget.playlistTitle);
+                  },
+                );
+              }
+              return Songs(
+                title: songs[index-1]['title']!,
+                ngheSi: songs[index-1]['ngheSi'] ?? 'Không rõ nghệ sĩ',
+                onMorePressed: () {},
+                onTap: () {},
+              );
+            },
+          );
+        },
+      ),
     );
   }
 }
