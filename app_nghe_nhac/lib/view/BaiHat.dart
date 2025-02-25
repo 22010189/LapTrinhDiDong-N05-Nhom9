@@ -87,7 +87,7 @@ class _BaiHatState extends State<BaiHat> {
                   itemBuilder: (context, index) {
                     return Songs(
                       title: songProvider.songs[index]['title']!,
-                      ngheSi: "Không xác định - Download",
+                      ngheSi: songProvider.songs[index]['ngheSi']??'Không rõ nghệ sĩ',  
                       onMorePressed: () {
                         //print("Nhấn vào nút more");
                       },

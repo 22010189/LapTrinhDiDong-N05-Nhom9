@@ -12,6 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
   audioplayers: ^5.2.1
+  audiotagger: ^2.1.0
   cupertino_icons: ^1.0.8
   cached_network_image: ^3.3.0
   flutter_slidable: ^3.0.0

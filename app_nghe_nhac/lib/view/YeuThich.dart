@@ -70,7 +70,7 @@ class YeuThich extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return Songs(
                         title: songProvider.favoriteSongs[index]['title']!,
-                        ngheSi: "Không xác định - Download",
+                        ngheSi: songProvider.favoriteSongs[index]['ngheSi']??'Không rõ nghệ sĩ',
                         isFavorite: true,
                         onMorePressed: () {
                           showModalBottomSheet(

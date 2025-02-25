@@ -109,7 +109,7 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
                 color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
           ),
           Text(
-            "Không xác định",
+            currentSong['ngheSi'] ?? 'Không rõ nghệ sĩ',
             style: TextStyle(color: Colors.grey, fontSize: 16),
           ),
           SizedBox(height: 20),
