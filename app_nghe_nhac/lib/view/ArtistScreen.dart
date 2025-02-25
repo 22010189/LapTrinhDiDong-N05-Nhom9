@@ -22,7 +22,6 @@ class _ArtistScreenState extends State<ArtistScreen> {
 
   Future<void> _loadArtists() async {
     List<Map<String, String>> songs = await ListSongs.loadSongs();
-    print('Danh sách bài hát: $songs');
 
     // Lọc danh sách nghệ sĩ không trùng lặp
     Set<String> artistSet = {};
@@ -31,7 +30,6 @@ class _ArtistScreenState extends State<ArtistScreen> {
         artistSet.add(song['ngheSi']!);
       }
     }
-    print('Danh sách nghệ sĩ: $artistSet');
 
     setState(() {
       uniqueArtists = artistSet.toList();

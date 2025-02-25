@@ -15,10 +15,10 @@ class ArtistWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+      margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 14),
       decoration: BoxDecoration(
-        color: Colors.teal[900], // Màu nền đậm hơn
-        borderRadius: BorderRadius.circular(8), // Bo góc
+        color: const Color.fromARGB(255, 7, 116, 116), 
+        borderRadius: BorderRadius.circular(8), 
       ),
       child: ListTile(
         leading: Container(
@@ -33,7 +33,7 @@ class ArtistWidget extends StatelessWidget {
         title: Text(
           artistName,
           style: const TextStyle(
-            color: Colors.white,
+            color: Color.fromARGB(255, 0, 0, 0),
             fontWeight: FontWeight.bold,
             fontSize: 16,
           ),
