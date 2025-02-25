@@ -1,6 +1,7 @@
 import 'package:app_nghe_nhac/view/AnBaiHat.dart';
 import 'package:app_nghe_nhac/view/NgheGanDay.dart';
 import 'package:app_nghe_nhac/view/BaiHat.dart';
+import 'package:app_nghe_nhac/view/PlaylistDetailScreen.dart';
 import 'package:app_nghe_nhac/view/YeuThich.dart';
 import 'package:app_nghe_nhac/view/widgetsForThuVien/more_options.dart';
 import 'package:app_nghe_nhac/view/widgetsForThuVien/option_card.dart';
@@ -237,7 +238,8 @@ class ThuVien2State extends State<ThuVien2> {
                   icon: Icons.music_note,
                   onTap: () {
                     updateRecentPlaylist(playlist['title']!);
-                    // Chuyển sang màn hình Playlist nếu cần
+                    NavigationController.navigateTo(context, PlaylistDetailScreen(playlistTitle: playlist['title']!));
+                    
                   },
                 );
               }
