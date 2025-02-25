@@ -5,11 +5,13 @@ import 'package:app_nghe_nhac/view/widgetsForBaiHat/Songs.dart';
 import 'package:app_nghe_nhac/view/widgetsForThuVien/more_options.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 // giao diện danh sachs bài hát
 class BaiHat extends StatefulWidget {
   const BaiHat({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _BaiHatState createState() => _BaiHatState();
 }
 
@@ -17,7 +19,8 @@ class _BaiHatState extends State<BaiHat> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() =>      //tránh lỗi Provider.of() bị gọi quá sớm
+    Future.microtask(() => //tránh lỗi Provider.of() bị gọi quá sớm
+        // ignore: use_build_context_synchronously
         Provider.of<SongProvider>(context, listen: false).loadSongs());
   }
 
@@ -53,14 +56,16 @@ class _BaiHatState extends State<BaiHat> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     InkWell(
                       onTap: () {
                         if (songProvider.songs.isNotEmpty) {
-                           Provider.of<SongProvider>(context, listen: false).playFromIndex(0);
+                          Provider.of<SongProvider>(context, listen: false)
+                              .playFromIndex(0);
                         }
                       },
                       child: Row(
@@ -92,8 +97,10 @@ class _BaiHatState extends State<BaiHat> {
                         //print("Nhấn vào nút more");
                       },
                       onTap: () {
-                        Provider.of<SongProvider>(context, listen: false).playFromIndex(index);
-                        NavigationController.navigateTo(context, MusicPlayerScreen());
+                        Provider.of<SongProvider>(context, listen: false)
+                            .playFromIndex(index);
+                        NavigationController.navigateTo(
+                            context, MusicPlayerScreen());
                       },
                     );
                   },

@@ -5,11 +5,11 @@ import 'package:app_nghe_nhac/view/widgetsForCaNhan/ngon_ngu.dart';
 import 'package:app_nghe_nhac/view/widgetsForCaNhan/thong_bao.dart';
 
 // giao diện cá nhân
+// ignore: unused_element
 String _selectedLanguage = "Tiếng Việt";
 
 class CaNhanScreen extends StatelessWidget {
   const CaNhanScreen({super.key});
-  
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class CaNhanScreen extends StatelessWidget {
 
             // Ô chứa nút "Chỉnh sửa hồ sơ" & "Đăng xuất"
             Container(
-              padding: EdgeInsets.all(16), 
+              padding: EdgeInsets.all(16),
               decoration: BoxDecoration(
                 color: const Color.fromARGB(255, 6, 79, 79), // Nền ô tối hơn
                 borderRadius: BorderRadius.circular(12),

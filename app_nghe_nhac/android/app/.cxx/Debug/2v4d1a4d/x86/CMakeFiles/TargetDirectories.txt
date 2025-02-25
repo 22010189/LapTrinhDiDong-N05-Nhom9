@@ -1,0 +1,2 @@
+C:/develop_app/LapTrinhDiDong-N05-Nhom9/app_nghe_nhac/android/app/.cxx/Debug/2v4d1a4d/x86/CMakeFiles/edit_cache.dir
+C:/develop_app/LapTrinhDiDong-N05-Nhom9/app_nghe_nhac/android/app/.cxx/Debug/2v4d1a4d/x86/CMakeFiles/rebuild_cache.dir

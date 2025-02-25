@@ -5,10 +5,11 @@ import 'package:provider/provider.dart';
 import 'dart:async';
 
 //giao diện nghe nhạc chính
-class MusicPlayerScreen extends StatefulWidget { 
+class MusicPlayerScreen extends StatefulWidget {
   const MusicPlayerScreen({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _MusicPlayerScreenState createState() => _MusicPlayerScreenState();
 }
 
@@ -20,6 +21,7 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
   StreamSubscription<Duration>? _positionSubscription;
   StreamSubscription<Duration>? _durationSubscription;
 
+  @override
   void initState() {
     super.initState();
 
@@ -67,7 +69,9 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
   @override
   Widget build(BuildContext context) {
     var songProvider = Provider.of<SongProvider>(context);
-    var currentSong = songProvider.isPlayingFavorites ? songProvider.favoriteSongs[songProvider.currentIndex] : songProvider.songs[songProvider.currentIndex];
+    var currentSong = songProvider.isPlayingFavorites
+        ? songProvider.favoriteSongs[songProvider.currentIndex]
+        : songProvider.songs[songProvider.currentIndex];
 
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 0, 0, 0),
@@ -173,16 +177,18 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
               SizedBox(width: 60),
               IconButton(
                 icon: Icon(
-                  songProvider.isFavorite(currentSong) ? Icons.favorite : Icons.favorite_border,
+                  songProvider.isFavorite(currentSong)
+                      ? Icons.favorite
+                      : Icons.favorite_border,
                   color: Colors.white,
                   size: 30,
                 ),
                 onPressed: () {
                   songProvider.toggleFavorite(currentSong, context);
-                  if(songProvider.isPlayingFavorites==true && songProvider.favoriteSongs.isEmpty){
+                  if (songProvider.isPlayingFavorites == true &&
+                      songProvider.favoriteSongs.isEmpty) {
                     songProvider.playFromIndex(0);
                   }
-                  
                 },
               ),
               SizedBox(width: 60),

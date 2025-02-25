@@ -6,6 +6,7 @@ class PlaylistItem extends StatelessWidget {
   final IconData icon;
   final VoidCallback onTap;
 
+  // ignore: use_super_parameters
   const PlaylistItem({
     Key? key,
     required this.title,
@@ -13,10 +14,9 @@ class PlaylistItem extends StatelessWidget {
     required this.icon,
     required this.onTap,
   }) : super(key: key);
-  
+
   @override
   Widget build(BuildContext context) {
-    
     return ListTile(
       leading: Container(
         width: 50,

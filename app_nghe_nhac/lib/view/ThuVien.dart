@@ -214,7 +214,7 @@ class ThuVien2State extends State<ThuVien2> {
     return Column(
       children: [
         // Danh sách playlist
-        Container(
+        SizedBox(
           height: 180,
           child: ListView.builder(
             itemCount: playlists.length + 1, // +1 để có thêm nút "Tạo playlist"

@@ -9,6 +9,7 @@ class MiniPlayer extends StatefulWidget {
   const MiniPlayer({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _MiniPlayerState createState() => _MiniPlayerState();
 }
 
@@ -24,6 +25,7 @@ class _MiniPlayerState extends State<MiniPlayer>
       duration: Duration(seconds: 5),
     );
     SongProvider.audioPlayer.onPlayerComplete.listen((event) {
+      // ignore: use_build_context_synchronously
       Provider.of<SongProvider>(context, listen: false).nextSong();
     });
   }

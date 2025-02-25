@@ -7,6 +7,7 @@ class Songs extends StatelessWidget {
   final VoidCallback onTap;
   final bool isFavorite;
 
+  // ignore: use_super_parameters
   const Songs({
     Key? key,
     required this.title,
@@ -28,7 +29,8 @@ class Songs extends StatelessWidget {
             color: Colors.grey[900],
             borderRadius: BorderRadius.circular(5),
           ),
-          child: Icon(isFavorite ? Icons.favorite : Icons.music_note, color: const Color.fromARGB(255, 224, 100, 121)),
+          child: Icon(isFavorite ? Icons.favorite : Icons.music_note,
+              color: const Color.fromARGB(255, 224, 100, 121)),
         ),
         title: Text(
           title,

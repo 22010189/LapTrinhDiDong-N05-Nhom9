@@ -1,3 +1,4 @@
+import 'package:app_nghe_nhac/view/AlbumDetail.dart';
 import 'package:flutter/material.dart';
 
 class Album {
@@ -18,12 +19,14 @@ class AlbumScreen extends StatelessWidget {
     Album(title: "MCK - đĩa đơn", assets: "assets/image/MCK.jpg"),
   ];
 
+  AlbumScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 6, 79, 79),
       appBar: AppBar(
-        title: Text("Albums"),
+        title: Text("Albums", style: TextStyle(color: Colors.white)),
         backgroundColor: const Color.fromARGB(255, 86, 84, 81),
       ),
       body: Padding(
@@ -40,12 +43,18 @@ class AlbumScreen extends StatelessWidget {
             final album = albums[index];
             return ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
+                backgroundColor: const Color.fromARGB(255, 255, 255, 255),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10)),
               ),
               onPressed: () {
                 // Thêm hành động khi bấm nút ở đây
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AlbumDetailScreen(album: album),
+                  ),
+                );
               },
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -53,16 +62,30 @@ class AlbumScreen extends StatelessWidget {
                   Expanded(
                     child: ClipRRect(
                       borderRadius:
-                          BorderRadius.vertical(top: Radius.circular(10)),
-                      child: Image.asset(album.assets,
-                          fit: BoxFit.cover, width: double.infinity),
+                          BorderRadius.circular(10), // Bo góc toàn bộ hình ảnh
+                      child: SizedBox(
+                        width: double.infinity, // Mở rộng toàn bộ chiều ngang
+                        child: AspectRatio(
+                          aspectRatio: 2, // Đảm bảo hình vuông
+                          child: Image.asset(
+                            album.assets,
+                            fit: BoxFit.cover,
+                            alignment: Alignment
+                                .topCenter, // Cắt lấy phần trên của ảnh
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text(album.title,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.black)),
+                    child: Text(
+                      album.title,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
                   ),
                 ],
               ),
