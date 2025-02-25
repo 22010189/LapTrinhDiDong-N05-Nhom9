@@ -179,6 +179,9 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
                 ),
                 onPressed: () {
                   songProvider.toggleFavorite(currentSong, context);
+                  if(songProvider.isPlayingFavorites==true && songProvider.favoriteSongs.isEmpty){
+                    songProvider.playFromIndex(0);
+                  }
                   
                 },
               ),
