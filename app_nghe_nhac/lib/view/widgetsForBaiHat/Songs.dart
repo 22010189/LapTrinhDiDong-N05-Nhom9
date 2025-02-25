@@ -32,11 +32,11 @@ class Songs extends StatelessWidget {
         ),
         title: Text(
           title,
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16),
         ),
         subtitle: Text(
           ngheSi,
-          style: TextStyle(color: Colors.black87),
+          style: TextStyle(color: const Color.fromARGB(221, 255, 255, 255), fontSize: 14),
         ),
         trailing: IconButton(
           icon: Icon(Icons.more_vert, color: Colors.black),
