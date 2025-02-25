@@ -11,7 +11,8 @@ class SongProvider with ChangeNotifier {
 
   int currentIndex = 0;
   static int repeatMode = 0; // 0: Lặp lại danh sách, 1: Lặp lại bài hát, 2: Phát ngẫu nhiên
-  
+  int dem =0;
+
   bool isPlaying = false;
   bool isPlayingFavorites = false; // Đang phát từ danh sách yêu thích hay không
   

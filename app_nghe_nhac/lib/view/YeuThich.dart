@@ -85,6 +85,9 @@ class YeuThich extends StatelessWidget {
                                       title: const Text("Xóa khỏi yêu thích"),
                                       onTap: () {
                                         Provider.of<SongProvider>(context,listen: false).toggleFavorite( songProvider.favoriteSongs[index],context);
+                                        if (songProvider.favoriteSongs.isEmpty && songProvider.isPlayingFavorites==true) {
+                                          songProvider.playFromIndex(0);
+                                        }
                                         Navigator.pop(context); // Đóng menu sau khi chọn
                                       },
                                     ),

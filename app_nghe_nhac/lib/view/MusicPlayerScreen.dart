@@ -179,6 +179,7 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
                 ),
                 onPressed: () {
                   songProvider.toggleFavorite(currentSong, context);
+                  
                 },
               ),
               SizedBox(width: 60),
