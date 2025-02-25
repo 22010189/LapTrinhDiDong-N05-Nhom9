@@ -67,7 +67,7 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
   @override
   Widget build(BuildContext context) {
     var songProvider = Provider.of<SongProvider>(context);
-    var currentSong = songProvider.isPlayingFavorites ? songProvider.favoriteSongs[songProvider.currentIndex] : songProvider.songs[songProvider.currentIndex];
+    var currentSong = songProvider.currentPlaylist[songProvider.currentIndex];
 
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 0, 0, 0),

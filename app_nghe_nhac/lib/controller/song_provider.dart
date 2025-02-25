@@ -8,13 +8,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class SongProvider with ChangeNotifier {
   List<Map<String, String>> songs = [];
   List<Map<String, String>> favoriteSongs = [];
+  List<Map<String, String>> currentPlaylist = [];
 
   int currentIndex = 0;
-  static int repeatMode =
-      0; // 0: Lặp lại danh sách, 1: Lặp lại bài hát, 2: Phát ngẫu nhiên
+  static int repeatMode = 0; // 0: Lặp lại danh sách, 1: Lặp lại bài hát, 2: Phát ngẫu nhiên
 
   bool isPlaying = false;
-  bool isPlayingFavorites = false; // Đang phát từ danh sách yêu thích hay không
 
   static final AudioPlayer audioPlayer = AudioPlayer();
 
@@ -22,23 +21,33 @@ class SongProvider with ChangeNotifier {
 
   String userId = "user_123";
 
+  void setPlaylist(String playlistName) {
+    if (playlistName == 'favorites') {
+      currentPlaylist = favoriteSongs;
+    }else {
+      currentPlaylist = songs; // Mặc định là danh sách tất cả bài hát
+    }
+    currentIndex = 0;
+    notifyListeners();
+  }
+
   Future<void> loadSongs() async {
     if (songs.isEmpty) {
       songs = await ListSongs.loadSongs();
+      currentPlaylist = songs;
       await loadFavoriteSongs();
       notifyListeners();
     }
   }
 
-  void playFromIndex(int index, {bool FromFavorites = false}) async {
-    if (songs.isEmpty) return;
-    isPlayingFavorites = FromFavorites;
+  void playFromIndex(int index) async {
+    if (currentPlaylist.isEmpty) return;
     currentIndex = index;
     await playNewSong();
   }
 
   void resumeSong() async {
-    if (songs.isEmpty) return;
+    if (currentPlaylist.isEmpty) return;
     if (isPlaying) {
       await audioPlayer.pause();
       await audioPlayer.resume();
@@ -47,7 +56,7 @@ class SongProvider with ChangeNotifier {
   }
 
   Future<void> playPause() async {
-    if (songs.isEmpty) return;
+    if (currentPlaylist.isEmpty) return;
 
     if (isPlaying) {
       await audioPlayer.pause();
@@ -57,7 +66,7 @@ class SongProvider with ChangeNotifier {
         await audioPlayer.resume();
       } else {
         await audioPlayer.play(AssetSource(
-            songs[currentIndex]['url']!.replaceFirst('assets/', '')));
+            currentPlaylist[currentIndex]['url']!.replaceFirst('assets/', '')));
       }
     }
     isPlaying = !isPlaying;
@@ -65,38 +74,29 @@ class SongProvider with ChangeNotifier {
   }
 
   void nextSong() async {
-    if (songs.isEmpty) return;
-    List<Map<String, String>> currentList =
-        isPlayingFavorites ? favoriteSongs : songs;
-
+    if (currentPlaylist.isEmpty) return;
     if (repeatMode == 1) {
       await playNewSong();
     } else if (repeatMode == 2) {
-      currentIndex = Random().nextInt(currentList.length);
+      currentIndex = Random().nextInt(currentPlaylist.length);
     } else {
-      currentIndex = (currentIndex + 1) % currentList.length;
+      currentIndex = (currentIndex + 1) % currentPlaylist.length;
     }
     await playNewSong();
   }
 
   void previousSong() async {
-    if (songs.isEmpty) return;
-    List<Map<String, String>> currentList =
-        isPlayingFavorites ? favoriteSongs : songs;
-
-    currentIndex = (currentIndex - 1 + currentList.length) % currentList.length;
+    if (currentPlaylist.isEmpty) return;
+    currentIndex = (currentIndex - 1 + currentPlaylist.length) %  currentPlaylist.length;
     await playNewSong();
   }
 
   Future<void> playNewSong() async {
-    if (songs.isEmpty) return;
-    List<Map<String, String>> currentList =
-      isPlayingFavorites ? favoriteSongs : songs;
-
+    if (currentPlaylist.isEmpty) return;
     await audioPlayer.stop();
     //print('Playing: ${songs[currentIndex]['url']}');
     await audioPlayer.play(
-        AssetSource(currentList[currentIndex]['url']!.replaceFirst('assets/', '')));
+        AssetSource(currentPlaylist[currentIndex]['url']!.replaceFirst('assets/', '')));
 
     isPlaying = true;
     notifyListeners(); // Cập nhật UI khi trạng thái thay đổi
