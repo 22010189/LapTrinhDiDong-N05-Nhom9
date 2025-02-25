@@ -1,4 +1,3 @@
-import 'package:app_nghe_nhac/controller/song_provider.dart';
 import 'package:app_nghe_nhac/view/AnBaiHat.dart';
 import 'package:app_nghe_nhac/view/NgheGanDay.dart';
 import 'package:app_nghe_nhac/view/BaiHat.dart';
@@ -10,7 +9,6 @@ import 'package:app_nghe_nhac/view/widgetsForThuVien/recent_card.dart';
 import 'package:flutter/material.dart';
 import 'package:app_nghe_nhac/controller/navigation_controller.dart';
 import 'package:app_nghe_nhac/view/album.dart';
-import 'package:provider/provider.dart';
 
 ValueNotifier<String> recentPlaylist = ValueNotifier<String>('');
 // Lưu trữ tên playlist gần đây nhất đã bấm vào
@@ -20,7 +18,6 @@ class ThuVien extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var songProvider = Provider.of<SongProvider>(context);
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 6, 79, 79),
       appBar: AppBar(
@@ -55,7 +52,6 @@ class ThuVien extends StatelessWidget {
                     count: ' ',
                     color: Colors.blue,
                     onTap: () => {
-                          songProvider.setPlaylist('favorites'),
                           NavigationController.navigateTo(context, YeuThich())
                         }), //màn hình yêu thích
                 SizedBox(width: 10),

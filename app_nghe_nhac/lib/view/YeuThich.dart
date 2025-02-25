@@ -36,7 +36,8 @@ class YeuThich extends StatelessWidget {
                       InkWell(
                         onTap: () {
                           if (songProvider.favoriteSongs.isNotEmpty) {
-                            songProvider.playFromIndex(0);
+                            songProvider.playFromIndex(0,
+                                fromFavorites: true);
                           }
                         },
                         child: Row(
@@ -94,7 +95,7 @@ class YeuThich extends StatelessWidget {
                           );
                         },
                         onTap: () {
-                          Provider.of<SongProvider>(context, listen: false).playFromIndex(index);
+                          Provider.of<SongProvider>(context, listen: false).playFromIndex(index,fromFavorites: true);
                           NavigationController.navigateTo(
                               context, MusicPlayerScreen());
                         },

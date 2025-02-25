@@ -39,7 +39,7 @@ class _MiniPlayerState extends State<MiniPlayer>
   Widget build(BuildContext context) {
     return Consumer<SongProvider>(
       builder: (context, songProvider, child) {
-        if (songProvider.currentPlaylist.isEmpty) {
+        if (songProvider.songs.isEmpty) {
           return Container(
             color: const Color.fromARGB(255, 105, 105, 104),
             padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
@@ -89,7 +89,11 @@ class _MiniPlayerState extends State<MiniPlayer>
                 // Tên bài hát
                 Expanded(
                   child: Text(
-                    songProvider.currentPlaylist[songProvider.currentIndex]['title']!,
+                    songProvider.isPlayingFavorites
+                        ? songProvider.favoriteSongs[songProvider.currentIndex]
+                            ['title']!
+                        : songProvider.songs[songProvider.currentIndex]
+                            ['title']!,
                     style: TextStyle(color: Colors.white, fontSize: 16),
                     overflow: TextOverflow.ellipsis,
                   ),
