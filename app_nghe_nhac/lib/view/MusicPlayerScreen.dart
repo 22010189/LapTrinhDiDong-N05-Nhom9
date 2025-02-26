@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'dart:async';
 
 //giao diện nghe nhạc chính
-class MusicPlayerScreen extends StatefulWidget { 
+class MusicPlayerScreen extends StatefulWidget {
   const MusicPlayerScreen({super.key});
 
   @override
@@ -67,10 +67,12 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
   @override
   Widget build(BuildContext context) {
     var songProvider = Provider.of<SongProvider>(context);
-    var currentSong = songProvider.isPlayingFavorites ? songProvider.favoriteSongs[songProvider.currentIndex] : songProvider.songs[songProvider.currentIndex];
+    var currentSong = songProvider.isPlayingFavorites
+        ? songProvider.favoriteSongs[songProvider.currentIndex]
+        : songProvider.songs[songProvider.currentIndex];
 
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+      backgroundColor: const Color.fromARGB(255, 15, 89, 103),
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 138, 135, 135),
         elevation: 0,
@@ -96,10 +98,13 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
             width: 250,
             height: 250,
             decoration: BoxDecoration(
-              color: Colors.red,
               borderRadius: BorderRadius.circular(20),
+              image: DecorationImage(
+                image: AssetImage(
+                    'image/disc.jpg'), // Ảnh đĩa nhạc (disc.png)
+                fit: BoxFit.cover, 
+              ),
             ),
-            child: Icon(Icons.music_note, color: Colors.white, size: 100),
           ),
           SizedBox(height: 20),
 
@@ -173,18 +178,21 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
               SizedBox(width: 60),
               IconButton(
                 icon: Icon(
-                  songProvider.isFavorite(currentSong) ? Icons.favorite : Icons.favorite_border,
+                  songProvider.isFavorite(currentSong)
+                      ? Icons.favorite
+                      : Icons.favorite_border,
                   color: Colors.white,
                   size: 30,
                 ),
                 onPressed: () {
                   songProvider.toggleFavorite(currentSong, context);
-                  if(songProvider.isPlayingFavorites==true && songProvider.favoriteSongs.isEmpty){
+                  if (songProvider.isPlayingFavorites == true &&
+                      songProvider.favoriteSongs.isEmpty) {
                     songProvider.playFromIndex(0);
-                  }else if(songProvider.isPlayingFavorites==true && songProvider.songs.isNotEmpty){
+                  } else if (songProvider.isPlayingFavorites == true &&
+                      songProvider.songs.isNotEmpty) {
                     songProvider.nextSong();
                   }
-                  
                 },
               ),
               SizedBox(width: 60),
