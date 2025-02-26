@@ -56,9 +56,9 @@ flutter run
 
 ##
 👨‍💻 Tác giả
-👤 Nguyễn Đức Lâm
+👤 Nguyễn Đức Lâm <br>
     Nguyễn Quốc Ngọc
-🔗 GitHub: https://github.com/lam1103
+🔗 GitHub: https://github.com/lam1103 <br>
             https://github.com/22010189
 
 
