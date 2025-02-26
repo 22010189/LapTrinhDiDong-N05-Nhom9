@@ -40,7 +40,13 @@ flutter run
 
 ##
 📸 Ảnh màn hình (Screenshots)
+1. Màn hình chính
 
+2. màn hình phát nhạc
+
+3. màn hình cá nhân
+
+4. 
 
 👨‍💻 Tác giả
 👤 Nguyễn Đức Lâm
