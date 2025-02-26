@@ -26,7 +26,6 @@ class SongProvider with ChangeNotifier {
     if (songs.isEmpty) {
       songs = await ListSongs.loadSongs();
       await loadFavoriteSongs();
-
       notifyListeners();
     }
   }
