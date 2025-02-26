@@ -15,7 +15,8 @@ class YeuThich extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 6, 79, 79),
       appBar: AppBar(
-        title: const Text("Bài hát yêu thích"),
+        title: const Text("Bài hát yêu thích",
+            style: TextStyle(color: Colors.white)),
         backgroundColor: const Color.fromARGB(255, 86, 84, 81),
       ),
       body: songProvider.favoriteSongs.isEmpty
