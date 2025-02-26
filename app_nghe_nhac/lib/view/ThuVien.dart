@@ -1,21 +1,67 @@
+import 'package:flutter/material.dart';
+import 'package:app_nghe_nhac/controller/navigation_controller.dart';
 import 'package:app_nghe_nhac/view/AnBaiHat.dart';
-import 'package:app_nghe_nhac/view/NgheGanDay.dart';
 import 'package:app_nghe_nhac/view/BaiHat.dart';
+import 'package:app_nghe_nhac/view/NgheGanDay.dart';
 import 'package:app_nghe_nhac/view/PlaylistDetailScreen.dart';
 import 'package:app_nghe_nhac/view/YeuThich.dart';
+import 'package:app_nghe_nhac/view/album.dart';
 import 'package:app_nghe_nhac/view/widgetsForThuVien/more_options.dart';
 import 'package:app_nghe_nhac/view/widgetsForThuVien/option_card.dart';
 import 'package:app_nghe_nhac/view/widgetsForThuVien/playlist_item.dart';
 import 'package:app_nghe_nhac/view/widgetsForThuVien/recent_card.dart';
-import 'package:flutter/material.dart';
-import 'package:app_nghe_nhac/controller/navigation_controller.dart';
-import 'package:app_nghe_nhac/view/album.dart';
 
-ValueNotifier<String> recentPlaylist = ValueNotifier<String>('');
-// Lưu trữ tên playlist gần đây nhất đã bấm vào
-
-class ThuVien extends StatelessWidget {
+class ThuVien extends StatefulWidget {
   const ThuVien({super.key});
+
+  @override
+  State<ThuVien> createState() => _ThuVienState();
+}
+
+class _ThuVienState extends State<ThuVien> {
+  final ValueNotifier<String> recentPlaylist = ValueNotifier<String>('');
+  final List<Map<String, String>> playlists = [];
+
+  // Hiển thị hộp thoại tạo playlist
+  void _showCreatePlaylistDialog(BuildContext context) {
+    final nameController = TextEditingController();
+    final subtitleController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text("Tạo Playlist"),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(controller: nameController, decoration: const InputDecoration(labelText: "Tên Playlist")),
+            TextField(controller: subtitleController, decoration: const InputDecoration(labelText: "Mô tả")),
+          ],
+        ),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(context), child: const Text("Hủy")),
+          TextButton(
+            onPressed: () {
+              if (nameController.text.isNotEmpty) {
+                setState(() {
+                  playlists.add({
+                    'title': nameController.text,
+                    'subtitle': subtitleController.text,
+                  });
+                });
+              }
+              Navigator.pop(context);
+            },
+            child: const Text("OK"),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _updateRecentPlaylist(String newPlaylist) {
+    recentPlaylist.value = newPlaylist;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,229 +70,95 @@ class ThuVien extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 86, 84, 81),
         elevation: 0,
-        title: Text(
-          'Thư viện',
-          style: TextStyle(color: Colors.white),
-        ),
+        title: const Text('Thư viện', style: TextStyle(color: Colors.white)),
         actions: [
-          IconButton(
-            icon: Icon(Icons.search, color: Colors.white),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: Icon(Icons.more_vert, color: Colors.white),
-            onPressed: () => showMoreOptions(context),
-          ),
+          IconButton(icon: const Icon(Icons.search, color: Colors.white), onPressed: () {}),
+          IconButton(icon: const Icon(Icons.more_vert, color: Colors.white), onPressed: () => showMoreOptions(context)),
         ],
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                OptionCard(
-                    icon: Icons.favorite,
-                    title: 'Yêu thích',
-                    count: ' ',
-                    color: Colors.blue,
-                    onTap: () => {
-                          NavigationController.navigateTo(context, YeuThich())
-                        }), //màn hình yêu thích
-                SizedBox(width: 10),
-                OptionCard(
-                    icon: Icons.download,
-                    title: 'Đã tải',
-                    count: ' ',
-                    color: Colors.purple,
-                    onTap: () => NavigationController.navigateTo(
-                        context, BaiHat())), //giao diện đã tải
-                SizedBox(width: 10),
-                Padding(
-                  padding: EdgeInsets.only(bottom: 16),
-                  child: OptionCard(
-                      icon: Icons.album,
-                      title: 'Album',
-                      count: '',
-                      color: Colors.pink,
-                      onTap: () => NavigationController.navigateTo(context,
-                          AlbumScreen())), // bỏ qua k code giao diện này
-                ),
-                Padding(
-                  padding: EdgeInsets.only(bottom: 16, left: 10),
-                  child: OptionCard(
-                      icon: Icons.visibility_off,
-                      title: 'Ẩn',
-                      count: '',
-                      color: const Color.fromARGB(255, 252, 252, 0),
-                      onTap: () => NavigationController.navigateTo(
-                          context, AnBaiHat())), //giao diện ẩn bài hát
-                ),
-              ],
+          _buildOptionCards(context),
+          _buildSectionTitle("Nghe gần đây"),
+          _buildRecentList(),
+          _buildSectionTitle("Playlist"),
+          _buildPlaylistList(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildOptionCards(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Row(
+        children: [
+          OptionCard(icon: Icons.favorite, title: 'Yêu thích', color: Colors.blue, onTap: () => NavigationController.navigateTo(context, YeuThich()), count: '',),
+          const SizedBox(width: 10),
+          OptionCard(icon: Icons.download, title: 'Đã tải', color: Colors.purple, onTap: () => NavigationController.navigateTo(context, BaiHat()), count: '',),
+          const SizedBox(width: 10),
+          OptionCard(icon: Icons.album, title: 'Album', color: Colors.pink, onTap: () => NavigationController.navigateTo(context, AlbumScreen()), count: '',),
+          const SizedBox(width: 10),
+          OptionCard(icon: Icons.visibility_off, title: 'Ẩn', color: Colors.yellow, onTap: () => NavigationController.navigateTo(context, AnBaiHat()), count: '',),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSectionTitle(String title) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
+      child: Text(title, style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
+    );
+  }
+
+  Widget _buildRecentList() {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: [
+          const SizedBox(width: 16),
+          RecentCard(title: 'Bài Hát Nghe Gần Đây', icon: Icons.history, onTap: () => NavigationController.navigateTo(context, NgheGanDay())),
+          ValueListenableBuilder<String>(
+            valueListenable: recentPlaylist,
+            builder: (context, value, child) => RecentCard(
+              title: value.isEmpty ? 'Gần đây chưa nghe playlist nào' : value,
+              icon: Icons.music_note,
+              onTap: () => NavigationController.navigateTo(context, PlaylistDetailScreen(playlistTitle: value)),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Text(
-              'Nghe gần đây',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold),
-            ),
-          ),
-          SizedBox(height: 10),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                SizedBox(width: 16),
-                RecentCard(
-                    title: 'Bài Hát Nghe Gần Đây',
-                    icon: Icons.history,
-                    onTap: () => NavigationController.navigateTo(context,
-                        NgheGanDay())), //giao diện bài hát nghe gần đây
-                ValueListenableBuilder<String>(
-                  valueListenable: recentPlaylist,
-                  builder: (context, value, child) {
-                    return RecentCard(
-                      title: value.isEmpty
-                          ? 'Gần đây chưa nghe playlist nào'
-                          : value,
-                      icon: Icons.music_note,
-                      onTap: () => NavigationController.navigateTo(
-                          context, PlaylistDetailScreen(playlistTitle: value)),
-                    );
-                  },
-                )
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Text(
-              'Playlist',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold),
-            ),
-          ),
-          Expanded(
-            child: ThuVien2(),
           ),
         ],
       ),
     );
   }
-}
 
-class ThuVien2 extends StatefulWidget {
-  const ThuVien2({super.key});
-
-  @override
-  State<ThuVien2> createState() => ThuVien2State();
-}
-
-class ThuVien2State extends State<ThuVien2> {
-  List<Map<String, String>> playlists = [];
-
-  // Hàm hiển thị hộp thoại nhập Playlist
-  void showCreatePlaylistDialog(BuildContext context) {
-    TextEditingController nameController = TextEditingController();
-    TextEditingController subtitleController = TextEditingController();
-
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("Tạo Playlist"),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                controller: nameController,
-                decoration: InputDecoration(labelText: "Tên Playlist"),
-              ),
-              TextField(
-                controller: subtitleController,
-                decoration: InputDecoration(labelText: "Mô tả"),
-              ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context); // Đóng hộp thoại
+  Widget _buildPlaylistList() {
+    return Expanded(
+      child: ListView.builder(
+        itemCount: playlists.length + 1,
+        itemBuilder: (context, index) {
+          if (index == 0) {
+            return PlaylistItem(
+              title: 'Tạo playlist',
+              subtitle: 'New',
+              icon: Icons.add,
+              onTap: () => _showCreatePlaylistDialog(context),
+            );
+          } else {
+            final playlist = playlists[index - 1];
+            return PlaylistItem(
+              title: playlist['title']!,
+              subtitle: playlist['subtitle']!,
+              icon: Icons.music_note,
+              onTap: () {
+                _updateRecentPlaylist(playlist['title']!);
+                NavigationController.navigateTo(context, PlaylistDetailScreen(playlistTitle: playlist['title']!));
               },
-              child: Text("Hủy"),
-            ),
-            TextButton(
-              onPressed: () {
-                if (nameController.text.isNotEmpty) {
-                  setState(() {
-                    playlists.add({
-                      'title': nameController.text,
-                      'subtitle': subtitleController.text,
-                      'icon': 'music_note',
-                    });
-                  });
-                }
-
-                Navigator.pop(context); // Đóng hộp thoại
-              },
-              child: Text("OK"),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  // Hàm hiện playlist nghe gần nhất
-  void updateRecentPlaylist(String newPlaylist) {
-    recentPlaylist.value = newPlaylist;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        // Danh sách playlist
-        Container(
-          height: 180,
-          child: ListView.builder(
-            itemCount: playlists.length + 1, // +1 để có thêm nút "Tạo playlist"
-            itemBuilder: (context, index) {
-              if (index == 0) {
-                // Nút tạo playlist
-                return PlaylistItem(
-                  title: 'Tạo playlist',
-                  subtitle: 'New',
-                  icon: Icons.add,
-                  onTap: () => showCreatePlaylistDialog(context),
-                );
-              } else {
-                // Hiển thị playlist từ danh sách
-                var playlist = playlists[index -
-                    1]; // Lùi 1 index vì phần tử đầu tiên là "Tạo playlist"
-                return PlaylistItem(
-                  title: playlist['title']!,
-                  subtitle: playlist['subtitle']!,
-                  icon: Icons.music_note,
-                  onTap: () {
-                    updateRecentPlaylist(playlist['title']!);
-                    NavigationController.navigateTo(context, PlaylistDetailScreen(playlistTitle: playlist['title']!));
-                    
-                  },
-                );
-              }
-            },
-          ),
-        ),
-      ],
+            );
+          }
+        },
+      ),
     );
   }
 }
