@@ -117,7 +117,7 @@ class ThuVien extends StatelessWidget {
                           : value,
                       icon: Icons.music_note,
                       onTap: () => NavigationController.navigateTo(
-                          context, Placeholder()),
+                          context, PlaylistDetailScreen(playlistTitle: value)),
                     );
                   },
                 )
