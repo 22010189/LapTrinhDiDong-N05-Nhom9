@@ -41,6 +41,7 @@ flutter run
 ##
 📸 Ảnh màn hình (Screenshots)
 1. Màn hình chính
+![mhc](https://github.com/user-attachments/assets/7f010ad8-4ad0-42d3-bdf6-5650bd9ef9d0)
 
 2. màn hình phát nhạc
 
