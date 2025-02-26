@@ -17,7 +17,7 @@ class GioiThieuAppScreen extends StatelessWidget {
             Text("🔹 Tác giả",
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             Text(
-                "Ứng dụng được phát triển bởi [Tên của bạn/Nhóm phát triển], với mong muốn mang đến trải nghiệm nghe nhạc mượt mà, tiện lợi và cá nhân hóa cho người dùng."),
+                "Ứng dụng được phát triển bởi [Nhóm 9], với mong muốn mang đến trải nghiệm nghe nhạc mượt mà, tiện lợi và cá nhân hóa cho người dùng."),
             SizedBox(height: 10),
             Text("🔹 Ngôn ngữ & Công nghệ",
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
