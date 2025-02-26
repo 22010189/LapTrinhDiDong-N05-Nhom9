@@ -63,14 +63,6 @@ class CaNhanScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 10),
-                  ElevatedButton.icon(
-                    onPressed: () {},
-                    icon: Icon(Icons.logout, color: Colors.white),
-                    label: Text("Đăng xuất"),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 99, 192, 127),
-                    ),
-                  ),
                 ],
               ),
             ),
