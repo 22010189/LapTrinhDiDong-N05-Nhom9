@@ -17,12 +17,8 @@
 
 ## 📦 Công nghệ sử dụng
 
-- **Flutter** (Dart) - Phát triển giao diện đa nền tảng  
-- **Provider / Riverpod** - Quản lý trạng thái  
-- **Just Audio** - Phát nhạc cục bộ  
-- **Hive / SharedPreferences** - Lưu trữ dữ liệu offline  
-- **Material Design** - Giao diện hiện đại  
-
+- **Flutter** (Dart) - Phát triển giao diện đa nền tảng
+- 
 ---
 
 ## 🛠 Cách cài đặt & chạy ứng dụng  
