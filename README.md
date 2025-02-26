@@ -29,7 +29,7 @@
 
 1️. **Clone dự án về máy**  
 
-git clone https://github.com/your_username/music_player.git
+git clone https://github.com/22010189/LapTrinhDiDong-N05-Nhom9.git
 cd music_player
 
 2. Cài đặt thư viện cần thiết
